@@ -23,17 +23,17 @@ class Student
     end
   end
 
-  def self.count_all_students_in_grade_9
-    sql = <<-SQL
-      SELECT COUNT (*)
-      FROM students
-      WHERE grade=9
-    SQL
-
-    DB[:conn].execute(sql).map do |row|
-      self.new_from_db(row)
-    end
+ def self.count_all_students_in_grade_9
+  sql = <<-SQL
+  SELECT *
+  FROM students
+  WHERE students.grade = 9
+  SQL
+  DB[:conn].execute(sql).collect do |row|
+    self.new_from_db(row)
   end
+end
+
 
   def self.students_below_12th_grade
     sql = <<-SQL
